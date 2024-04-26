@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="description" content="Number Guessing Game, in PHP" />
   <meta name="keywords" content="mths, ics2o" />
-  <meta name="author" content="Giordan Zeina" />
+  <meta name="author" content="Nathan De Silva" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="./css/style.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
@@ -29,23 +29,37 @@
       <div class="right-image">
         <img src="./images/dice.gif" alt="dice" width="250" />
       </div>
-      <h3>Select a number between 1-6:
-      </h3>
       <div class="page-content-php">
-        <form action="answer.php" method="POST">
-          <div class="mdl-textfield mdl-js-textfield">
-            <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" name="number-guessed">
-            <label class="mdl-textfield__label" for="number-guessed">Enter a number ...</label>
-            <span class="mdl-textfield__error">Input is not a number!</span>
+        <div name="number-guessed">
+          <div class="mdl-layout__header-row">
+            <br />
+            <div class="mdl-layout__content">
+            </div>
+            <div class="mdl-layout__left">
+              <?php
+
+              if (isset($_POST["number-guessed"])) {
+                $randomNumber = floor(rand(6, 1));
+                $numberGuessed = intval($_POST["number-guessed"]);
+
+                // process
+                if ($numberGuessed == $randomNumber) {
+                  // output
+                  echo "You guessed: " . $numberGuessed . ", and got the correct number which was: " . $randomNumber;
+                }
+
+                // process
+                if ($numberGuessed != $randomNumber) {
+                  // output
+                  echo "You guessed: " . $numberGuessed . ", ";
+                  echo "the correct number was " . $randomNumber;
+                }
+              }
+
+              ?>
+            </div>
           </div>
-          <br />
-          <br />
-          <!-- Accent-colored raised button with ripple -->
-          <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit">
-            Guess
-          </button>
-        </form>
-      </div>
+        </div>
     </main>
   </div>
 </body>
